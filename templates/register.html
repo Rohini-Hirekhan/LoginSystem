@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script> -->
+    <!-- <script src="js/jquery.validate.js"></script>
+    <script src="js/messages_es.js"></script>
+    <script src="js/signup-form.js"></script> -->
+    <title>Sign-up Form</title>
+</head>
+
+<body>
+    <!-- call the registration function itself -->
+    <form class="cmxform" id="signupform" autocomplete="off" action="register" method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Sign-up Form</legend>
+            <p>
+                <label for="firstname">First Name</label>
+                <input id="firstname" type="text" name="first_name">
+            </p>
+            <p>
+                <label for="lastname">Last Name</label>
+                <input id="lastname" type="text" name="last_name">
+            </p>
+            <p>
+                <label for="username">Username</label>
+                <input id="username" type="text" name="username">
+            </p>
+            
+            <p>
+                <label for="firstname">Email-ID</label>
+                <input id="email" type="email" name="email">
+            </p>
+            <p>
+                <label for="Password">Password</label>
+                <input id="Password" type="text" name="password1">
+            </p>
+            <p>
+                <label for="confirm_Password">Confirm
+                    Password</label>
+                <input id="confirm_Password" type="Password" name="password2">
+            </p>
+
+            <br><input type="submit">
+        </fieldset>
+
+
+    </form>
+    <div>
+        {% for message in messages %}
+        <h3> {{message}} </h3>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script>
+        // validate signup form on keyup and submit
+        $("#signupform").validate({
+            rules: {
+                firstname: "required",
+                lastname: "required",
+                username: {
+                    required: true,
+                    minlength: 2
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+                confirm_Password: {
+                    required: true,
+                    minlength: 5,
+                    equalTo: "password"
+                },
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                firstname: "Please Enter Your First Name",
+                lastname: "Please Enter Your Last Name",
+
+                username: {
+                    required: "Please Enter a Username",
+                    minlength: "ypur username must contain of at least 2 characters"
+                },
+                password: {
+                    required: "please provide a password",
+                    minlength: "your password must be at least 5 characters long"
+                },
+                confirm_Password: {
+                    required: "please provide a password",
+                    minlength: "your password must be at least 5 characters long",
+                    equalTo: "please enter the same password as above"
+                }
+            }
+        });
+</script>
